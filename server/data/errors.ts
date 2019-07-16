@@ -1,7 +1,6 @@
 export enum DataError {
     EntityNotFound,
+    InvalidEntity,
     InvalidIdentifier,
     UnknownError,
 }
-
-export default DataError;

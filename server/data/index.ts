@@ -1,2 +1,2 @@
 export { DataError } from './errors';
-export { properties } from './properties';
+export { default as properties } from './properties';

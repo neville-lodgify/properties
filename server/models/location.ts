@@ -1,3 +1,8 @@
+// import internal dependencies
+import { isObject, isString } from '../utils';
+
+////////////////////////////////////////////////////////////////////////////////
+
 export enum State {
     AK = 'AK',
     AL = 'AL',
@@ -59,6 +64,12 @@ export interface Location {
     zip: string;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-export default Location;
+export const isLocation = (location: any): location is Location => {
+    return isObject(location)
+        && isString(location.address)
+        && isString(location.country)
+        && isString(location.city)
+        && isString(location.state)
+        && Object.values(State).includes(location.state)
+        && isString(location.zip);
+};
