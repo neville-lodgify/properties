@@ -1,17 +1,18 @@
-// import external dependencies
-import shortid from 'shortid';
-
 // import internal dependencies
 import {
     Property,
-    PropertyModel,
+    PropertyCreateModel,
+    PropertyUpdateModel,
     isProperty,
-    isPropertyModel,
+    isPropertyCreateModel,
+    isPropertyUpdateModel,
+    getPropertyFromPropertyCreateModel,
+    getPropertyFromPropertyUpdateModel,
 } from '../models/property';
-import { DataError } from './errors';
 import { isUndefined, isString } from '../utils';
+import { DataError } from './errors';
 
-// import data
+// import static data
 import data from './properties-data.json';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -19,9 +20,7 @@ import data from './properties-data.json';
 const properties: Property[] = data as Property[];
 
 export const list = (): Promise<Property[]> => {
-    return new Promise((resolve) => {
-        resolve(properties);
-    });
+    return new Promise((resolve) => { resolve(properties); });
 };
 
 export const single = (id: string): Promise<Property> => {
@@ -45,19 +44,13 @@ export const single = (id: string): Promise<Property> => {
     });
 };
 
-export const create = (model: PropertyModel): Promise<Property> => {
+export const create = (model: PropertyCreateModel): Promise<Property> => {
     return new Promise((resolve, reject) => {
-        if (isPropertyModel(model)) {
-            const id = shortid.generate();
-            const date = new Date(Date.now()).toISOString();
-            const property: Property = {
-                ...model,
-                id,
-                image: `https://source.unsplash.com/960x540/?house&sig=${id}`,
-                created: date,
-                updated: date,
-            };
-            data.push(property);
+        if (isPropertyCreateModel(model)) {
+            const property: Property =
+                getPropertyFromPropertyCreateModel(model);
+
+            properties.push(property);
             resolve(property);
         } else {
             reject(DataError.InvalidEntity);
@@ -65,23 +58,25 @@ export const create = (model: PropertyModel): Promise<Property> => {
     });
 };
 
-export const update = (id: string, property: Property): Promise<Property> => {
+export const update = (
+    id: string,
+    model: PropertyUpdateModel
+): Promise<Property> => {
     return new Promise((resolve, reject) => {
         if (isString(id)) {
-            if (isProperty(property)) {
+            if (isPropertyUpdateModel(model)) {
                 const index = properties.findIndex((property: Property) => {
                     return property.id === id;
                 });
 
                 if (index > -1) {
-                    const date = new Date(Date.now()).toISOString();
-                    const updated = {
-                        ...property,
-                        id,
-                        updated: date,
-                    };
-                    properties.splice(index, 1, updated);
-                    resolve(properties[index]);
+                    const property = getPropertyFromPropertyUpdateModel(
+                        properties[index],
+                        model
+                    );
+
+                    properties.splice(index, 1, property);
+                    resolve(property);
                 } else {
                     reject(DataError.EntityNotFound);
                 }
@@ -120,4 +115,10 @@ export const remove = (id: string): Promise<boolean> => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export default { list, single, create, update, remove };
+export default {
+    list,
+    single,
+    create,
+    update,
+    remove,
+};

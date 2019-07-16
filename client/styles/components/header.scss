@@ -1,0 +1,17 @@
+.header {
+    padding: 2rem 0;
+    background-color: #333333;
+    color: #fafafa;
+
+    &__headline {
+        font-size: 3rem;
+        font-weight: 100;
+        line-height: 4.5rem;
+    }
+
+    &__tagline {
+        font-size: 1.5rem;
+        font-weight: 100;
+        line-height: 2rem;
+    }
+}

@@ -2,7 +2,13 @@ export { Contact, isContact } from './contact';
 export { Location, isLocation } from './location';
 export {
     Property,
-    PropertyModel,
+    PropertyBase,
+    PropertyCreateModel,
+    PropertyUpdateModel,
     isProperty,
-    isPropertyModel
+    isPropertyBase,
+    isPropertyCreateModel,
+    isPropertyUpdateModel,
+    getPropertyFromPropertyCreateModel,
+    getPropertyFromPropertyUpdateModel,
 } from './property';

@@ -2,9 +2,13 @@
 import { Request, Response } from 'express';
 
 // import internal dependencies
-import { DataError, properties } from '../data';
-import { Property, isPropertyModel, isProperty } from '../models';
 import config from '../config';
+import { DataError, properties } from '../data';
+import {
+    Property,
+    isPropertyCreateModel,
+    isPropertyUpdateModel,
+} from '../models';
 import { isString } from '../utils';
 import { ResponseError, getResponseErrorFromDataError } from './errors';
 import { getSuccessResponse, getErrorResponse } from './response';
@@ -13,7 +17,7 @@ import { getSuccessResponse, getErrorResponse } from './response';
 
 const endpoint = `${config.api.url}/properties`;
 
-export const list = (request: Request, response: Response) => {
+export const getCollection = (request: Request, response: Response) => {
     properties
         .list()
         .then((properties: Property[]) => {
@@ -33,7 +37,7 @@ export const list = (request: Request, response: Response) => {
         });
 };
 
-export const single = (request: Request, response: Response) => {
+export const getResource = (request: Request, response: Response) => {
     if (isString(request.params.id)) {
         properties
             .single(request.params.id)
@@ -55,7 +59,6 @@ export const single = (request: Request, response: Response) => {
                     .status(payload.error.status)
                     .json(payload);
             });
-
     } else {
         const payload = getErrorResponse(endpoint, ResponseError.BadRequest);
         response
@@ -64,8 +67,8 @@ export const single = (request: Request, response: Response) => {
     }
 };
 
-export const create = (request: Request, response: Response) => {
-    if (isPropertyModel(request.body.property)) {
+export const postCollection = (request: Request, response: Response) => {
+    if (isPropertyCreateModel(request.body.property)) {
         properties
             .create(request.body.property)
             .then((property: Property) => {
@@ -87,7 +90,6 @@ export const create = (request: Request, response: Response) => {
                     .json(payload);
             });
     } else {
-        console.log('[DEBUG] Controller > Create > Model validation failed', request.body); // DEBUG
         const payload = getErrorResponse(endpoint, ResponseError.BadRequest);
         response
             .status(payload.error.status)
@@ -95,10 +97,12 @@ export const create = (request: Request, response: Response) => {
     }
 };
 
-export const update = (request: Request, response: Response) => {
-    if (isString(request.params.id) && isProperty(request.params.property)) {
+export const putResource = (request: Request, response: Response) => {
+    if (isString(request.params.id)
+        && isPropertyUpdateModel(request.body.property)
+    ) {
         properties
-            .update(request.params.id, request.params.property)
+            .update(request.params.id, request.body.property)
             .then((property: Property) => {
                 const payload = getSuccessResponse(
                     `${endpoint}/${property.id}`,
@@ -125,7 +129,7 @@ export const update = (request: Request, response: Response) => {
     }
 };
 
-export const remove = (request: Request, response: Response) => {
+export const deleteResource = (request: Request, response: Response) => {
     if (isString(request.params.id)) {
         properties
             .remove(request.params.id)
@@ -152,4 +156,10 @@ export const remove = (request: Request, response: Response) => {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-export default { list, single, create, update, remove };
+export default {
+    getCollection,
+    getResource,
+    postCollection,
+    putResource,
+    deleteResource,
+};

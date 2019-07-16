@@ -23,11 +23,11 @@ router.get('/api/v1', (request: Request, response: Response) => {
     response.json({ greeting: 'Hello World!' });
 });
 
-router.get('/api/v1/properties', controllers.properties.list);
-router.get('/api/v1/properties/:id', controllers.properties.single);
-router.post('/api/v1/properties', controllers.properties.create);
-router.put('/api/v1/properties/:id', controllers.properties.update);
-router.delete('/api/v1/properties/:id', controllers.properties.remove);
+router.get('/api/v1/properties', controllers.properties.getCollection);
+router.get('/api/v1/properties/:id', controllers.properties.getResource);
+router.post('/api/v1/properties', controllers.properties.postCollection);
+router.put('/api/v1/properties/:id', controllers.properties.putResource);
+router.delete('/api/v1/properties/:id', controllers.properties.deleteResource);
 
 ////////////////////////////////////////////////////////////////////////////////
 

@@ -1,0 +1,27 @@
+{
+    "property": {
+        "id": ID,
+        "name": "Dragonball Resort",
+        "description": "Dragonball Resort (Description)...",
+        "owner": {
+            "name": "Jonathan Doe",
+            "phone": "123-555-6789",
+            "email": "jonathan.doe@example.com",
+            "location": {
+                "address": "1 Dragonball Ave.",
+                "country": "United States",
+                "city": "Satan City",
+                "state": "CA",
+                "zip": "12345"
+            }
+        },
+        "location": {
+            "address": "9000 Dragonball Ave.",
+            "country": "United States",
+            "city": "Satan City",
+            "state": "CA",
+            "zip": "12345"
+        },
+        "image": URL
+    }
+}
