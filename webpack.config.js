@@ -14,7 +14,7 @@ const configuration = {
     },
     devtool: 'source-map',
     resolve: {
-        extensions: ['.js', '.react.js', '.json', '*'],
+        extensions: ['.react.js', '.js', '.json', '*'],
     },
     module: {
         rules: [
