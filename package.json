@@ -25,6 +25,7 @@
         "@types/node": "^12.6.2",
         "@types/shortid": "^0.0.29",
         "babel-loader": "^8.0.6",
+        "concurrently": "^4.1.1",
         "node-sass": "^4.12.0",
         "ts-node": "^8.3.0",
         "ts-node-dev": "^1.0.0-pre.40",
@@ -37,6 +38,9 @@
         "build:scripts": "webpack --config ./webpack.config.js",
         "build:styles": "node-sass ./client/styles/main.scss ./build/css/main.css --source-map true",
         "dev": "ts-node-dev server/server.ts",
-        "start": "ts-node server/server.ts"
+        "start": "ts-node server/server.ts",
+        "watch": "concurrently \"yarn run watch:scripts\" \"yarn run watch:styles\"",
+        "watch:scripts": "yarn run build:scripts --watch",
+        "watch:styles": "yarn run build:styles && yarn run build:styles --watch"
     }
 }
