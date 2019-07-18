@@ -25,6 +25,7 @@
         "@babel/plugin-transform-runtime": "^7.5.0",
         "@babel/preset-env": "^7.5.4",
         "@babel/preset-react": "^7.0.0",
+        "@fortawesome/fontawesome-free": "^5.9.0",
         "@types/body-parser": "^1.17.0",
         "@types/dotenv": "^6.1.1",
         "@types/express": "^4.17.0",
@@ -41,10 +42,12 @@
         "webpack-cli": "^3.3.6"
     },
     "scripts": {
-        "build": "yarn run build:scripts && yarn run build:styles",
+        "build": "yarn run build:scripts && yarn run build:styles && yarn run build:vendor && yarn run build:fonts",
+        "build:fonts": "cp -rf ./node_modules/@fortawesome/fontawesome-free/webfonts/. ./build/webfonts/",
         "build:scripts": "webpack --config ./webpack.config.js",
         "build:styles": "node-sass ./client/styles/main.scss ./build/css/main.css --source-map true",
-        "dev": "concurrently \"yarn run watch:server\" \"yarn run watch:scripts\" \"yarn run watch:styles\"",
+        "build:vendor": "cp -rf ./node_modules/@fortawesome/fontawesome-free/css/all.css ./build/css/fontawesome.css",
+        "dev": "concurrently \"yarn run build\" \"yarn run watch:server\" \"yarn run watch:scripts\" \"yarn run watch:styles\"",
         "start": "yarn run build && yarn run start:server",
         "start:server": "ts-node server/server.ts",
         "watch:server": "ts-node-dev server/server.ts",

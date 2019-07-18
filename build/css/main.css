@@ -29,7 +29,8 @@ ul, li {
   flex-direction: column;
   min-height: 100vh; }
   .page > *:nth-child(2) {
-    flex: 1; }
+    flex: 1;
+    padding: 2rem 0; }
   .page__container {
     width: 100%;
     min-width: 320px;
@@ -57,5 +58,30 @@ ul, li {
     font-size: 0.75rem;
     line-height: 1.5rem;
     text-align: center; }
+
+.landing-page__header {
+  margin-bottom: 2rem; }
+  .landing-page__header-headline {
+    font-size: 1rem;
+    line-height: 2rem;
+    text-transform: uppercase; }
+
+.landing-page__features {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+  .landing-page__features-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 12rem;
+    text-decoration: none; }
+    .landing-page__features-link i {
+      color: #999999;
+      font-size: 4rem; }
+  .landing-page__features-link:hover i {
+    color: #333333; }
 
 /*# sourceMappingURL=main.css.map */

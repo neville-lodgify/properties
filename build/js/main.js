@@ -310,12 +310,16 @@ var LandingPage = function LandingPage() {
   }, "Welcome to Properties App")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     className: "landing-page__features"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    className: "landing-page__feature-link",
+    className: "landing-page__features-link",
     to: "/properties"
-  }, "Properties"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    className: "landing-page__feature-link",
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fas fa-home"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    className: "landing-page__features-link",
     to: "/bookings"
-  }, "Bookings")));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "far fa-calendar-alt"
+  }))));
 };
 
 /***/ }),

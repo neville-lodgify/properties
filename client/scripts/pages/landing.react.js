@@ -12,14 +12,14 @@ export const LandingPage = () => (
 
         <section className="landing-page__features">
             <Link
-                className="landing-page__feature-link"
+                className="landing-page__features-link"
                 to="/properties">
-                Properties
+                <i className="fas fa-home" />
             </Link>
             <Link
-                className="landing-page__feature-link"
+                className="landing-page__features-link"
                 to="/bookings">
-                Bookings
+                <i className="far fa-calendar-alt" />
             </Link>
         </section>
     </section>
